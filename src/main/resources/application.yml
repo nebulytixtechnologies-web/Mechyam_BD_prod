@@ -1,0 +1,84 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /mechyam
+    session:
+      timeout: 30m
+      cookie:
+        http-only: true
+        secure: false
+  tomcat:
+    max-swallow-size: 50MB
+    max-http-form-post-size: 50MB
+
+spring:
+  main:
+    allow-circular-references: true
+
+  datasource:
+    url: jdbc:mysql://mechyam-db.cn2m44m8yct4.ap-south-1.rds.amazonaws.com:3306/mechyamdb
+    username: admin
+    password: Nebulytix1215
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: tejassoni910@gmail.com
+    password: viowppacozyzetas
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  redis:
+    host: localhost
+    port: 6379
+
+# ==============================
+# Application Specific Settings
+# ==============================
+
+app:
+  manager:
+    email: tejassoni0004@gmail.com
+  email:
+    subject:
+      prefix: "[Mechyam Contact]"
+  otp:
+    length: 6
+    expiry-minutes: 10
+
+# ==============================
+# JWT Configuration
+# ==============================
+
+jwt:
+  secret: mySuperSecretKeyForAdminAuthentication2024MakeItVeryLongAndSecure
+  expiration: 86400000
+  temp:
+    expiration: 600000
+
+# ==============================
+# Cloudinary Configuration
+# ==============================
+
+cloudinary:
+  cloud-name: daxap5rkw
+  api-key: 121696175895798
+  api-secret: T_lcxHnOCHqx-qInLsIzZxeJlrQ
