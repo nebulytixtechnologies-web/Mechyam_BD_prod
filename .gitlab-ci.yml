@@ -2,6 +2,7 @@ image: maven:3.9.9-eclipse-temurin-17
 
 stages:
   - build
+  - test
 
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
@@ -18,3 +19,8 @@ build-backend:
     paths:
       - target/*.jar
     expire_in: 1 week
+
+test-backend:
+  stage: test
+  script:
+    - mvn test
