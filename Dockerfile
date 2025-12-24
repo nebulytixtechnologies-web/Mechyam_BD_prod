@@ -1,5 +1,5 @@
 # Use official OpenJDK image
-FROM openjdk:17-jdk-alpine
+FROM eclipse-temurin:17-jdk-alpine
 
 # Add JAR file
 COPY target/mechyam-backend.jar /app/mechyam-backend.jar
