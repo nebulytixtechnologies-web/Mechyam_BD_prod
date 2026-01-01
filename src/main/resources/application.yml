@@ -82,3 +82,12 @@ cloudinary:
   cloud-name: daxap5rkw
   api-key: 121696175895798
   api-secret: T_lcxHnOCHqx-qInLsIzZxeJlrQ
+  
+# ==============================
+# FIX: Disable Redis Health Check
+# ==============================
+
+  management:
+    health:
+      redis:
+        enabled: false
