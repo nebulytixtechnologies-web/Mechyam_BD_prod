@@ -109,15 +109,15 @@ package com.mechyam.service;
 import java.time.Duration;
 import java.util.Random;
 
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OTPService {
 
-    private final RedisTemplate<String, String> redisTemplate;
+    private final StringRedisTemplate redisTemplate;
 
-    public OTPService(RedisTemplate<String, String> redisTemplate) {
+    public OTPService(StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -128,9 +128,9 @@ public class OTPService {
         String otp = String.valueOf(100000 + new Random().nextInt(900000));
 
         redisTemplate.opsForValue().set(
-                "OTP:" + email,
+                buildKey(email),
                 otp,
-                Duration.ofMinutes(10)
+                Duration.ofMinutes(10)   // OTP expiry
         );
 
         return otp;
@@ -140,7 +140,8 @@ public class OTPService {
     // Validate OTP
     // =============================
     public boolean validateOTP(String email, String otp) {
-        String key = "OTP:" + email;
+        String key = buildKey(email);
+
         String storedOtp = redisTemplate.opsForValue().get(key);
 
         if (storedOtp == null) {
@@ -150,9 +151,16 @@ public class OTPService {
         boolean isValid = storedOtp.equals(otp);
 
         if (isValid) {
-            redisTemplate.delete(key);
+            redisTemplate.delete(key); // Remove OTP after success
         }
 
         return isValid;
+    }
+
+    // =============================
+    // Redis Key Builder
+    // =============================
+    private String buildKey(String email) {
+        return "OTP:" + email;
     }
 }
