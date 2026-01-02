@@ -57,7 +57,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5175"));
+        config.setAllowedOrigins(List.of(
+        		"http://localhost:5175",
+        		 "http://13.203.229.88",
+        		 "http://13.203.229.88:80" // Port 80 for your frontend
+        		));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setExposedHeaders(List.of("Authorization"));
