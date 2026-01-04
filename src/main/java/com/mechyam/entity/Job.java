@@ -221,6 +221,7 @@ package com.mechyam.entity;
 
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat; 
 
 import java.time.LocalDate;
 import java.util.List;
@@ -268,9 +269,11 @@ public class Job {
     private Boolean isActive;
     
     @Column(name = "POSTED_DATE")
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate postedDate;
     
     @Column(name = "CLOSING_DATE")
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate closingDate;
     
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
