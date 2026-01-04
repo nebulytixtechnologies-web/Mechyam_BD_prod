@@ -2,6 +2,8 @@ package com.mechyam.config;
 
 import java.util.List;
 
+
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -37,6 +39,7 @@ public class SecurityConfig {
                         "/api/admin/auth/login",
                         "/api/admin/auth/verify-otp",
                         "/api/admin/auth/resend-otp",
+                        "/api/admin/auth/logout",
                         "/api/admin/auth/test"
                 ).permitAll()
 
