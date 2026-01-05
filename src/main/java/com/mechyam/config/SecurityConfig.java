@@ -63,7 +63,9 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(
         		"http://localhost:5175",
         		 "http://13.203.229.88",
-        		 "http://13.203.229.88:80" // Port 80 for your frontend
+        		 "http://13.203.229.88:80",// Port 80 for your frontend
+        		 "https://www.mechyam.com",
+        		 "https://mechyam.com"
         		));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));

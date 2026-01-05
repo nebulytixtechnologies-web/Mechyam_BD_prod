@@ -14,7 +14,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/mechyam/**")
-                        .allowedOrigins("http://localhost:5175")
+                        .allowedOrigins("http://localhost:5175",
+                        		"https://www.mechyam.com",
+                        		"https://mechyam.com"
+                        		)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .exposedHeaders("Authorization")
