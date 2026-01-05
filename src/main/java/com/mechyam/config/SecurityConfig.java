@@ -37,10 +37,10 @@ public class SecurityConfig {
                 // ✅ Allow all OTP/Auth endpoints
                 .requestMatchers(
                         "/mechyam/api/admin/auth/login",
-                        "/api/admin/auth/verify-otp",
-                        "/api/admin/auth/resend-otp",
-                        "/api/admin/auth/logout",
-                        "/api/admin/auth/test",
+                        "/mechyam/api/admin/auth/verify-otp",
+                        "/mechyam/api/admin/auth/resend-otp",
+                        "/mechyam/api/admin/auth/logout",
+                        "/mechyam/api/admin/auth/test",
                         "/mechyam/actuator/**"
                 ).permitAll()
 
