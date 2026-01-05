@@ -36,11 +36,12 @@ public class SecurityConfig {
 
                 // ✅ Allow all OTP/Auth endpoints
                 .requestMatchers(
-                        "/api/admin/auth/login",
+                        "/mechyam/api/admin/auth/login",
                         "/api/admin/auth/verify-otp",
                         "/api/admin/auth/resend-otp",
                         "/api/admin/auth/logout",
-                        "/api/admin/auth/test"
+                        "/api/admin/auth/test",
+                        "/mechyam/actuator/**"
                 ).permitAll()
 
                 // ✅ Protect admin dashboard after OTP
