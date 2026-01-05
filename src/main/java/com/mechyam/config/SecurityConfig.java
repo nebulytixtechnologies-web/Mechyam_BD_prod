@@ -65,6 +65,8 @@ public class SecurityConfig {
         		 "http://13.203.229.88",
         		 "http://13.203.229.88:80",// Port 80 for your frontend
         		 "https://www.mechyam.com",
+        		 "https://mechyam.com",
+        		 "https://www.mechyam.com",
         		 "https://mechyam.com"
         		));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
