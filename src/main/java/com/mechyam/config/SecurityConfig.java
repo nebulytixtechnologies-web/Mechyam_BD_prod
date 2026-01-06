@@ -67,6 +67,8 @@ public class SecurityConfig {
         		 "http://13.203.229.88:80",// Port 80 for your frontend
         		 "https://www.mechyam.com",
         		 "https://mechyam.com",
+        		 "http://www.mechyam.com",
+        		 "http://mechyam.com",
         		 "https://www.mechyam.com",
         		 "https://mechyam.com"
         		));
