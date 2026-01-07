@@ -482,9 +482,9 @@ public class CareerController {
                 
                 if (resource.exists() && resource.isReadable()) {
                     return ResponseEntity.ok()
-                            .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                            .contentType(MediaType.APPLICATION_PDF)
                             .header(HttpHeaders.CONTENT_DISPOSITION, 
-                                    "attachment; filename=\"" + jobApplication.getResumeFileName() + "\"")
+                                    "inline; filename=\"" + jobApplication.getResumeFileName() + "\"")
                             .body(resource);
                 }
             }
