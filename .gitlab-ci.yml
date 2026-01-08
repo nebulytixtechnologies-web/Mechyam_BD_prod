@@ -4,6 +4,7 @@ stages:
   - install
   - build
   - test
+  - debug
   - deploy
 
 variables:
@@ -57,6 +58,19 @@ test-backend:
     - mvn test
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
+
+
+# ------------------------
+# DEBUG STAGE
+# ------------------------
+debug-env:
+  stage: debug
+  script:
+    - echo "======= CI VARIABLES ======="
+    - printenv | sort
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
 
 # ------------------------
 # DEPLOY STAGE (SSH)
