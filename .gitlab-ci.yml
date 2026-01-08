@@ -112,7 +112,7 @@ deploy-all:
       git pull 
 
       echo "▶ Building frontend image"
-      cd mechyam-frontend
+      cd /opt/mechyam/mechyam_FD_prod/mechyam-frontend
       docker build -t mechyam-frontend-new .
 
       echo "▶ Restarting containers"
