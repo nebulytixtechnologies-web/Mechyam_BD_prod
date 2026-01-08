@@ -11,6 +11,7 @@ variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
   APP_NAME: mechyam-backend
   DEPLOY_PATH: /opt/mechyam
+  FRONTEND_PATH: /opt/mechyam/mechyam-frontend
 
 cache:
   key: maven-cache
@@ -68,24 +69,58 @@ debug-env:
   script:
     - echo "======= CI VARIABLES ======="
     - printenv | sort
+    - echo "======= CI DEBUG INFO ======="
+    - echo "CI_PROJECT_PATH=$CI_PROJECT_PATH"
+    - echo "CI_COMMIT_BRANCH=$CI_COMMIT_BRANCH"
+    - echo "CI_PIPELINE_ID=$CI_PIPELINE_ID"
+    - echo "SERVER_IP=$SERVER_IP"
+    - echo "SSH_USER=$SSH_USER"
+    - echo "============================="
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
 
 
 # ------------------------
-# DEPLOY STAGE (SSH)
+# DEPLOY STAGE (BACKEND + FRONTEND)
 # ------------------------
-deploy-backend:
+deploy-all:
   stage: deploy
   image: alpine:latest
   before_script:
-    - apk add --no-cache openssh
+    - apk add --no-cache openssh docker-cli docker-compose git
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+
   script:
     - scp target/*.jar $SSH_USER@$SERVER_IP:$DEPLOY_PATH/$APP_NAME.jar
+
+    - |
+      ssh $SSH_USER@$SERVER_IP << 'EOF'
+      set -e
+
+      echo "▶ Moving to /opt/mechyam"
+      cd /opt/mechyam
+
+      echo "▶ Building backend image"
+      docker build -t mechyam-backend .
+
+      echo "▶ Updating frontend"
+      cd mechyam-frontend
+      git pull origin main
+
+      echo "▶ Building frontend image"
+      docker build -t mechyam-frontend-new .
+
+      echo "▶ Restarting containers"
+      cd /opt/mechyam
+      docker compose down
+      docker compose up -d --build
+
+      echo "✅ Deployment finished successfully"
+      EOF
+
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
