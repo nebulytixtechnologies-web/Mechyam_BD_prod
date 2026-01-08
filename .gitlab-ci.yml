@@ -4,7 +4,7 @@ stages:
   - install
   - build
   - test
-  -debug
+  - debug
   - deploy
 
 variables:
