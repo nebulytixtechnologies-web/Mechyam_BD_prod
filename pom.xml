@@ -24,8 +24,9 @@
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <sonar.organization>nebulytixtechnologies-web</sonar.organization>
+		<sonar.organization>nebulytixtechnologies-web</sonar.organization>
     </properties>
+	
 
     <dependencies>
         <!-- Web -->
