@@ -6,14 +6,18 @@ on:
       - main
 
 jobs:
-  trigger-gitlab:
+  trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger GitLab CI via cURL
+      - name: Trigger GitLab via cURL
+        env:
+          # Mapping secrets to environment variables fixes the brace error
+          PROJECT_ID: ${{ secrets.GITLAB_PROJECT_ID }}
+          TOKEN: ${{ secrets.GITLAB_TRIGGER_TOKEN }}
         run: |
           curl --request POST \
-            --form token="${{ secrets.GITLAB_TRIGGER_TOKEN }}" \
+            --form token="$TOKEN" \
             --form ref="main" \
-            "https://gitlab.com{{ secrets.GITLAB_PROJECT_ID }}/trigger/pipeline"
+            "https://gitlab.com"
         
 
