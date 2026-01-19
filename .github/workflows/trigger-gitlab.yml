@@ -3,7 +3,7 @@ name: Trigger GitLab CI
 on:
   push:
     branches:
-      - main  # Trigger only on pushes to main
+      - main
 
 jobs:
   trigger-gitlab:
@@ -12,7 +12,10 @@ jobs:
       - name: Trigger GitLab Pipeline
         uses: appleboy/gitlab-ci-action@master
         with:
-          url: "https://gitlab.com" # Use your self-managed URL if applicable
+          # Change 'url' to 'host'
+          host: "https://gitlab.com" 
+          # Ensure these secrets are correctly set in GitHub Settings
           project_id: ${{ secrets.GITLAB_PROJECT_ID }}
           token: ${{ secrets.GITLAB_TRIGGER_TOKEN }}
-          ref: "main" # The GitLab branch you want to run the pipeline on
+          ref: "main"
+
