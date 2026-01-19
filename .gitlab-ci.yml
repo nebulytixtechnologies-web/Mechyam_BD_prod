@@ -4,6 +4,7 @@ stages:
   - install
   - build
   - test
+  - sonarqube-check
   - debug
   - deploy
 
@@ -12,6 +13,8 @@ variables:
   APP_NAME: mechyam-backend
   DEPLOY_PATH: /opt/mechyam
   FRONTEND_PATH: /opt/mechyam/mechyam-frontend
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+  GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
 
 cache:
   key: maven-cache
@@ -60,6 +63,25 @@ test-backend:
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
 
+# ------------------------
+# SONARQUBE STAGE (Integrated Version)
+# ------------------------
+
+sonarqube-check:
+  stage: sonarqube-check
+  image: maven:3.9.9-eclipse-temurin-17 # Use the same image as your build
+  cache:
+    key: maven-cache # Use the same cache key as your other jobs
+    paths:
+      - .m2/repository
+      - .sonar/cache
+  script:
+    # We use the Maven plugin because your project is Maven-based
+    #- mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=nebulytixtechnologies-web_Mechyam_BD_prod -Dsonar.qualitygate.wait=true
+    - mvn sonar:sonar -Dsonar.projectKey=nebulytixtechnologies-web_Mechyam_BD_prod -Dsonar.qualitygate.wait=true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 # ------------------------
 # DEBUG STAGE
