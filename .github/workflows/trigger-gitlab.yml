@@ -6,9 +6,22 @@ on:
       - main
 
 jobs:
-  trigger:
+  sync-and-trigger:
     runs-on: ubuntu-latest
     steps:
+    # STEP 1: Get the new code from GitHub
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required to sync all history
+
+    # STEP 2: Force the new code into GitLab
+      - name: Push Code to GitLab
+        run: |
+          # Push the current branch to GitLab using a Personal Access Token (PAT)
+          git push --force https://${{ secrets.GITLAB_USER }}:${{ secrets.GITLAB_PAT }}@://gitlab.com HEAD:main
+
+    # STEP 3: Trigger the Pipeline (Corrected URL)
       - name: Trigger GitLab via cURL
         env:
           # Mapping secrets to environment variables fixes the brace error
