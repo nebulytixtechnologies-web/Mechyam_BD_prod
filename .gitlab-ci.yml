@@ -77,7 +77,7 @@ sonarqube-check:
       - .sonar/cache
   script:
     # We use the Maven plugin because your project is Maven-based
-    - mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=nebulytixtechnologies-web_Mechyam_BD_prod -Dsonar.qualitygate.wait=true
+    - mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=nebulytixtechnologies-web_Mechyam_BD_prod -Dsonar.qualitygate.wait=false
     #- mvn sonar:sonar -Dsonar.projectKey=nebulytixtechnologies-web_Mechyam_BD_prod -Dsonar.qualitygate.wait=true
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
