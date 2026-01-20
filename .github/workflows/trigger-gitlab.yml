@@ -19,7 +19,7 @@ jobs:
       - name: Push Code to GitLab
         run: |
           # Push the current branch to GitLab using a Personal Access Token (PAT)
-          git push --force https://${{ secrets.GITLAB_USER }}:${{ secrets.GITLAB_PAT }}@://gitlab.com HEAD:main
+          git push --force https://${{ secrets.GITLAB_USER }}:${{ secrets.GITLAB_PAT }}@gitlab.com HEAD:main
 
     # STEP 3: Trigger the Pipeline (Corrected URL)
       - name: Trigger GitLab via cURL
@@ -31,6 +31,6 @@ jobs:
           curl --request POST \
             --form token="$TOKEN" \
             --form ref="main" \
-            "https://gitlab.com"
+            "https://gitlab.com/api/v4/projects/$PROJECT_ID/trigger/pipeline"
         
 
