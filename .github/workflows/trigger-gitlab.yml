@@ -19,7 +19,9 @@ jobs:
       - name: Push Code to GitLab
         run: |
           # Push the current branch to GitLab using a Personal Access Token (PAT)
-          git push --force https://${{ secrets.GITLAB_USER }}:${{ secrets.GITLAB_PAT }}@gitlab.com HEAD:main
+          # git push --force https://${{ secrets.GITLAB_USER }}:${{ secrets.GITLAB_PAT }}@gitlab.com HEAD:main
+          git push --force https://nebulytixtechnologies-web:${{ secrets.GITLAB_PAT }}@gitlab.com/nebulytixtechnologies-web/Mechyam_BD_prod.git HEAD:main
+
 
     # STEP 3: Trigger the Pipeline (Corrected URL)
       - name: Trigger GitLab via cURL
