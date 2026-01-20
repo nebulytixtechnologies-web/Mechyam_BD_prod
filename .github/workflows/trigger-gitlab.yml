@@ -17,10 +17,14 @@ jobs:
 
     # STEP 2: Force the new code into GitLab
       - name: Push Code to GitLab
+        env:
+          GL_USER: ${{ secrets.GITLAB_USERNAME }}
+          GL_PAT: ${{ secrets.GITLAB_PAT }}
         run: |
           # Push the current branch to GitLab using a Personal Access Token (PAT)
           # git push --force https://${{ secrets.GITLAB_USER }}:${{ secrets.GITLAB_PAT }}@gitlab.com HEAD:main
-          git push https://nebulytixtechnologies-web:${{ secrets.GITLAB_PAT }}@gitlab.com/nebulytixtechnologies-web/Mechyam_BD_prod.git HEAD:main
+          #git push https://nebulytixtechnologies-web:${{ secrets.GITLAB_PAT }}@gitlab.com/nebulytixtechnologies-web/Mechyam_BD_prod.git HEAD:main
+          git push https://oauth2:$GL_PAT@gitlab.com/nebulytixtechnologies-web/Mechyam_BD_prod.git HEAD:main
 
 
     # STEP 3: Trigger the Pipeline (Corrected URL)
